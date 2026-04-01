@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block title %}Facebook Detection{% endblock %} {%
+block content %}
+<h2>📘 Facebook Fake Account Detection</h2>
+<form action="/predict" method="POST" class="mt-4">
+  <label>Followers:</label>
+  <input type="number" name="followers" class="form-control" />
+  <label>Following:</label>
+  <input type="number" name="following" class="form-control" />
+  <label>Posts:</label>
+  <input type="number" name="posts" class="form-control" />
+  <label>Bio Present (1 = Yes, 0 = No):</label>
+  <input type="number" name="bio" min="0" max="1" class="form-control" />
+
+  <label>Profile Picture Present (1 = Yes, 0 = No):</label>
+  <input
+    type="number"
+    name="profile_pic"
+    min="0"
+    max="1"
+    class="form-control"
+  />
+
+  <input type="hidden" name="mode" value="facebook" />
+  <button type="submit" class="btn btn-primary mt-3">Predict</button>
+</form>
+{% endblock %}

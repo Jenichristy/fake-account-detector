@@ -1,0 +1,132 @@
+{% extends 'base.html' %} {% block title %}Instagram Detection{% endblock %} {%
+block content %}
+
+<h2 class="text-center mt-3">📸 Instagram Fake Account Detection</h2>
+
+<form
+  action="/predict"
+  method="POST"
+  class="mt-4 container shadow p-4 bg-white rounded"
+>
+  <!-- Mode Buttons -->
+  <div class="text-center mb-4">
+    <button type="button" id="btnPublic" class="btn btn-outline-primary me-2">
+      🌐 Public Mode
+    </button>
+    <button type="button" id="btnPrivate" class="btn btn-outline-secondary">
+      🔒 Private Mode
+    </button>
+  </div>
+
+  <!-- Public Mode Section -->
+  <div id="public-mode" class="mode-section" style="display: none">
+    <h5 class="mb-3 fw-bold">🌐 Public Mode</h5>
+    <div class="mb-3">
+      <label class="form-label">Instagram Username:</label>
+      <input
+        type="text"
+        name="username"
+        class="form-control"
+        placeholder="Enter username"
+      />
+    </div>
+  </div>
+
+  <!-- Private Mode Section -->
+  <div id="private-mode" class="mode-section" style="display: none">
+    <h5 class="mb-3 fw-bold">🔒 Private Mode (Manual Input)</h5>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Followers:</label>
+        <input
+          type="number"
+          name="followers"
+          class="form-control"
+          placeholder="Enter followers count"
+        />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Following:</label>
+        <input
+          type="number"
+          name="following"
+          class="form-control"
+          placeholder="Enter following count"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Posts:</label>
+        <input
+          type="number"
+          name="posts"
+          class="form-control"
+          placeholder="Enter posts count"
+        />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Bio Present (1 = Yes, 0 = No):</label>
+        <input
+          type="number"
+          name="bio"
+          class="form-control"
+          min="0"
+          max="1"
+          placeholder="1 or 0"
+        />
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label"
+        >Profile Picture Present (1 = Yes, 0 = No):</label
+      >
+      <input
+        type="number"
+        name="profile_pic"
+        class="form-control"
+        min="0"
+        max="1"
+        placeholder="1 or 0"
+      />
+    </div>
+  </div>
+
+  <!-- Hidden field for mode -->
+  <input type="hidden" name="mode" id="mode" value="" />
+
+  <!-- Submit Button -->
+  <div class="text-center mt-4">
+    <button type="submit" class="btn btn-primary px-4">Predict</button>
+  </div>
+</form>
+
+<!-- JavaScript for toggling modes -->
+<script>
+  const btnPublic = document.getElementById("btnPublic");
+  const btnPrivate = document.getElementById("btnPrivate");
+  const publicMode = document.getElementById("public-mode");
+  const privateMode = document.getElementById("private-mode");
+  const modeInput = document.getElementById("mode");
+
+  btnPublic.addEventListener("click", () => {
+    publicMode.style.display = "block";
+    privateMode.style.display = "none";
+    modeInput.value = "public";
+    btnPublic.classList.add("btn-primary");
+    btnPrivate.classList.remove("btn-secondary");
+  });
+
+  btnPrivate.addEventListener("click", () => {
+    privateMode.style.display = "block";
+    publicMode.style.display = "none";
+    modeInput.value = "private";
+    btnPrivate.classList.add("btn-secondary");
+    btnPublic.classList.remove("btn-primary");
+  });
+</script>
+
+{% endblock %}

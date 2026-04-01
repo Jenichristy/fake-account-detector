@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block content %}
+
+<!-- 🔹 Your Big Heading -->
+<!-- <div class="container" style="padding-top: 100px">
+  
+  <div class="text-center mb-4">
+    <h1 class="fw-bold">Fake Account Detection</h1>
+    <p class="text-muted">
+      Identify and analyze fake social media profiles using AI-based insights.
+    </p>
+  </div> -->
+  
+
+  <!-- 🔹 Your Carousel Section -->
+  <div
+    id="carouselExampleIndicators"
+    class="carousel slide"
+    data-bs-ride="carousel"
+  >
+    {% include 'caroseul.html' %}
+
+    <!-- your carousel code here -->
+  </div>
+
+  <!-- 🔹 ⭐ PASTE THE CARDS HERE ⭐ -->
+  <div class="container mt-5">
+    <div class="row text-center">
+      <div class="col-md-4">
+        <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+          <h4 class="fw-bold">🔍 Fake Account Detection</h4>
+          <p>AI-powered system to detect fake or suspicious activity.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+          <h4 class="fw-bold">📊 Analytics Dashboard</h4>
+          <p>View reports, account scores, and system insights.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+          <h4 class="fw-bold">🛡 Secure Detection</h4>
+          <p>High accuracy, advanced filtering, and secure processing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 🔹 END OF CARDS -->
+
+  {% endblock %}
+</div>

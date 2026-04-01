@@ -1,0 +1,106 @@
+{% extends 'base.html' %} {% block content %}
+<h2>🔍 Prediction Result</h2>
+
+<div class="result-box">
+  <!-- Verdict -->
+  <p>
+    <strong>Verdict:</strong>
+    {% if verdict == "Fake" %}
+    <span class="fake">{{ verdict }} Account</span>
+    {% elif verdict == "Real" %}
+    <span class="real">{{ verdict }} Account</span>
+    {% else %}
+    <span>{{ verdict }}</span>
+    {% endif %}
+  </p>
+
+  <!-- Risk Score -->
+  <p><strong>Risk Score:</strong> {{ score }}%</p>
+
+  <!-- Risk Meter -->
+  <div class="circular-meter">
+    <svg width="160" height="160">
+      {% set radius = 70 %} {% set circumference = 2 * 3.1416 * radius %} {% set
+      progress = circumference - (circumference * score / 100) %}
+
+      <circle class="circular-bg" cx="80" cy="80" r="{{ radius }}"></circle>
+
+      <circle
+        class="circular-progress"
+        cx="80"
+        cy="80"
+        r="{{ radius }}"
+        stroke-dasharray="{{ circumference }}"
+        stroke-dashoffset="{{ progress }}"
+      ></circle>
+    </svg>
+
+    <div class="meter-text">{{ score }}%</div>
+  </div>
+
+  <!-- Confidence Level -->
+  {% if confidence %}
+  <p><strong>Confidence Level:</strong> {{ confidence }}%</p>
+  {% endif %}
+
+  <!-- Explanation -->
+  <p><strong>Explanation:</strong> {{ explanation }}</p>
+
+  <!-- AI Chat Explanation -->
+  {% if chat_explanation %}
+  <div class="chat-box">
+    <p><strong>AI:</strong> {{ chat_explanation }}</p>
+  </div>
+  {% endif %}
+
+  <!-- Feature Importance Chart -->
+  {% if chart_data %}
+  <h4>📊 Feature Importance</h4>
+  <img
+    src="data:image/png;base64,{{ chart_data }}"
+    alt="Feature Importance Chart"
+  />
+  {% endif %}
+
+  <!-- Input Features -->
+  {% if values %}
+  <h4>📥 Input Features</h4>
+  <ul>
+    {% for feature, value in values %}
+    <li><strong>{{ feature }}:</strong> {{ value }}</li>
+    {% endfor %} {% if verified is defined %}
+    <li><strong>Verified:</strong> {{ 'Yes' if verified else 'No' }}</li>
+    {% endif %} {% if account_age_days is defined %}
+    <li><strong>Account Age (days):</strong> {{ account_age_days }}</li>
+    {% endif %}
+  </ul>
+  {% endif %}
+
+  <!-- Profile Preview (Public Mode) -->
+  {% if profile_pic_url %}
+  <h4>👤 Profile Preview</h4>
+  <img src="{{ profile_pic_url }}" alt="Profile Picture" width="100" />
+  <p><strong>Bio:</strong> {{ bio }}</p>
+  <p><strong>Followers:</strong> {{ followers }}</p>
+  <p><strong>Following:</strong> {{ following }}</p>
+  <p><strong>Posts:</strong> {{ posts }}</p>
+  {% endif %}
+
+  <!-- Report Confirmation Message -->
+  {% if message %}
+  <p style="color: #00ff99">{{ message }}</p>
+  {% endif %}
+
+  <!-- Report Button -->
+  <form action="/report" method="POST">
+    <input type="hidden" name="username" value="{{ username }}" />
+    <button type="submit">🚩 Report This Account</button>
+  </form>
+
+  <!-- PDF Download Button -->
+  <a href="/download-report" class="download-btn">📄 Download PDF Report</a>
+</div>
+
+<!-- Back Navigation -->
+<a href="/" class="back-btn">🔙 Go Back</a>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %} {% block title %}Twitter Detection{% endblock %} {%
+block content %}
+<h2>🐦 Twitter Fake Account Detection</h2>
+<form action="/predict" method="POST" class="mt-4">
+  <label>Twitter Username:</label>
+  <input type="text" name="username" class="form-control" />
+
+  <input type="hidden" name="mode" value="twitter" />
+  <button type="submit" class="btn btn-primary mt-3">Predict</button>
+</form>
+{% endblock %}
